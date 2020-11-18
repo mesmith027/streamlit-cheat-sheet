@@ -1,4 +1,5 @@
 import streamlit as st
+import math
 from pathlib import Path
 import base64
 
@@ -39,7 +40,7 @@ def basic(page):
     col1, col2 = st.beta_columns(2)
     # start with the basics
 
-    # Creating Text
+    # CREATING TEXT
     col1.header('Display text')
     col1.write('There are various ways to display text in Streamlit')
 
@@ -56,9 +57,12 @@ def basic(page):
     col1.code("st.text('Fixed width text command:')")
 
     col1.write('The write command, also works when passing most objects:')
+    an_object = ['list', 3.14159,0]
     col1.code('''
         st.write('The write command, also works when passing most objects:')
-        st.write(an_object) # df, err, func, keras!''')
+        st.write(an_object) #this is a list
+        ''')
+    col1.write(an_object)
 
     col1.markdown('_Markdown_, __Markdown__:')
     col1.code("st.markdown('_Markdown_, __Markdown__')")
@@ -66,14 +70,6 @@ def basic(page):
     col1.write('LaTeX equations:')
     col1.code("st.latex('e^{i\pi} + 1 = 0')")
     col1.latex('e^{i\pi} + 1 = 0')
-    col1.code('''
-    st.write(['st', 'is <', 3]) # see *
-
-    
-    
-    st.code('for i in range(8): foo()')
-    * optional kwarg unsafe_allow_html = True
-        ''')
 
     # SIDEBAR COMMANDS
     col1.subheader('Sidebar')
@@ -81,6 +77,63 @@ def basic(page):
     col1.code('''
 st.sidebar.<widget>
 >>> a = st.sidebar.radio(\'R:\',[1,2])
+    ''')
+
+    # WIDGETS
+    col2.header('Interactive Widgets')
+    col2.write('There are many interactive widgets that you can use to allow the user \
+        to interact with your app')
+
+    col2.subheader('Button')
+    a_button = col2.button('Hit me')
+
+    col2.code('''
+    a_button = st.button('Hit me')
+    if a_button: # if it has been clicked
+        st.write('TADA!')''')
+    if a_button: # if it has been clicked
+        col2.write('TADA!')
+
+    col2.subheader('Checkbox')
+    a_checkbox = col2.checkbox('Check me out')
+    col2.code(''' 
+    a_checkbox = st.checkbox('Check me out') 
+    if a_checkbox: # if clicked
+        st.write("Check me out I'm awesome!")''')
+
+    if a_checkbox: # if clicked    
+        col2.write("Check me out I'm awesome!")
+
+    col2.subheader('Radio Buttons')
+    col2.write('The options for a radio button can be a string, interger or float')
+    radio_selection = col2.radio('Radio', ['Option 1',2,3.14159])
+    col2.code(''' 
+    radio_selection = col2.radio('Radio', ['Option 1',2,3.14159]) 
+    if radio_selection == 'Option 1': 
+        st.write("great choice")
+    elif radio_selection == 2:
+        st.write("thats a number")
+    elif radio_selection == 3.14159:
+        st.write(math.pi)''')
+    if radio_selection == 'Option 1': 
+        col2.write("great choice")
+    elif radio_selection == 2:
+        col2.write("thats a number")
+    elif radio_selection == 3.14159:
+        col2.write(math.pi)
+
+    col2.code('''
+st.selectbox('Select', [1,2,3])
+st.multiselect('Multiselect', [1,2,3])
+st.slider('Slide me', min_value=0, max_value=10)
+st.select_slider('Slide to select', options=[1,'2'])
+st.text_input('Enter some text')
+st.number_input('Enter a number')
+st.text_area('Area for textual entry')
+st.date_input('Date input')
+st.time_input('Time entry')
+st.file_uploader('File uploader')
+st.color_picker('Pick a color')
     ''')
 
     # PLOT COMMANDS
@@ -113,9 +166,9 @@ if __name__ == '__main__':
     possible functions and commands in Streamlit')
     page = st.sidebar.radio('Navigation', [
         'Setup and Commandline',
-        'Basic',
-        'Beta',
-        'Experimental',
+        'Basic Commands',
+        'Beta Commands',
+        'Experimental Commands',
         'Tutorial'])
 
     # in side bar add links to the documentation and version this is based on
@@ -126,11 +179,11 @@ if __name__ == '__main__':
     # run associated page program for each selection
     if page == 'Setup and Commandline':
         setup(page)
-    elif page == 'Basic':
+    elif page == 'Basic Commands':
         basic(page)
-    elif page == 'Beta':
+    elif page == 'Beta Commands':
         beta(page)
-    elif page == 'Experimental':
+    elif page == 'Experimental Commands':
         experimental(page)
     elif page == 'Tutorial':
         tutorial(page)
