@@ -1,8 +1,8 @@
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/daniellewisdl/streamlit-cheat-sheet/master/app.py)
 
-# streamlit-cheat-sheet
-A cheat sheet for Streamlit
-v0.71.0 (versions now aligned to Streamlit versioning)
+# streamlit-cheat-sheet-expansion
+This is an expanded version of Daniel's Streamlit Cheat Sheet. It builds on what Daniel created \
+making more of a tutorial-type index of all the possible Streamlit commands and 
 
 # Versioning
 * Based on Streamlit 0.71.0
@@ -12,9 +12,9 @@ v0.71.0 (versions now aligned to Streamlit versioning)
 A clean venv with just pip and then Streamlit
 
 # Deployments
-[Streamlit Cheat Sheet - Sharing for Streamlit](https://share.streamlit.io/daniellewisdl/streamlit-cheat-sheet/master/app.py)
+[Daniel's Original Streamlit Cheat Sheet - Sharing for Streamlit](https://share.streamlit.io/daniellewisdl/streamlit-cheat-sheet/master/app.py)
 
-[Streamlit Cheat Sheet - Heroku](https://streamlit-cheat-sheet.herokuapp.com/)
+[Streamlit Cheat Sheet Expansion - TBD]()
 
 # Show me
 ![Streamlit Cheat Sheet](https://github.com/daniellewisDL/streamlit-cheat-sheet/blob/master/streamlit-cheat-sheet.png)
