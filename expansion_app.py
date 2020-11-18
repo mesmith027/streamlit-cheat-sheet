@@ -59,8 +59,8 @@ def basic(page):
     col1.write('The write command, also works when passing most objects:')
     an_object = ['list', 3.14159,0]
     col1.code('''
-        st.write('The write command, also works when passing most objects:')
-        st.write(an_object) #this is a list
+st.write('The write command, also works when passing most objects:')
+st.write(an_object) #this is a list
         ''')
     col1.write(an_object)
 
@@ -88,53 +88,102 @@ st.sidebar.<widget>
     a_button = col2.button('Hit me')
 
     col2.code('''
-    a_button = st.button('Hit me')
-    if a_button: # if it has been clicked
-        st.write('TADA!')''')
+a_button = st.button('Hit me')
+if a_button: # if it has been clicked
+    st.write('TADA!')''')
     if a_button: # if it has been clicked
         col2.write('TADA!')
 
     col2.subheader('Checkbox')
     a_checkbox = col2.checkbox('Check me out')
     col2.code(''' 
-    a_checkbox = st.checkbox('Check me out') 
-    if a_checkbox: # if clicked
-        st.write("Check me out I'm awesome!")''')
+a_checkbox = st.checkbox('Check me out') 
+if a_checkbox: # if clicked
+    st.write("Check me out I'm awesome!")''')
 
     if a_checkbox: # if clicked    
         col2.write("Check me out I'm awesome!")
 
     col2.subheader('Radio Buttons')
-    col2.write('The options for a radio button can be a string, interger or float')
-    radio_selection = col2.radio('Radio', ['Option 1',2,3.14159])
+    col2.write('The options for a radio button can be a string, integer, float, or variable')
+    variable = 12
+    radio_selection = col2.radio('Radio', ['Option 1',variable,3.14159])
     col2.code(''' 
-    radio_selection = col2.radio('Radio', ['Option 1',2,3.14159]) 
-    if radio_selection == 'Option 1': 
-        st.write("great choice")
-    elif radio_selection == 2:
-        st.write("thats a number")
-    elif radio_selection == 3.14159:
-        st.write(math.pi)''')
+variable = 12
+radio_selection = col2.radio('Radio', ['Option 1',variable,3.14159]) 
+if radio_selection == 'Option 1': 
+    st.write("great choice")
+elif radio_selection == variable:
+    st.write("thats a number from a variable")
+elif radio_selection == 3.14159:
+    st.write(math.pi)''')
     if radio_selection == 'Option 1': 
         col2.write("great choice")
-    elif radio_selection == 2:
-        col2.write("thats a number")
+    elif radio_selection == variable:
+        col2.write("thats a number from a variable")
     elif radio_selection == 3.14159:
         col2.write(math.pi)
 
+    col2.subheader('Selectbox')
+    col2.write('Select 1 option from a variety')
+    single_select = col2.selectbox('Single Select', ['what', 'will', 'you', 'choose?'])
+
+    col2.code(''' 
+single_select = st.selectbox('Single Select', ['what', 'will', 'you', 'choose?'])
+    
+if (single_select == 'what') or (single_select == 'you'): 
+    st.write('You win! :smiley:')
+else: 
+    st.write('Winner Winner :chicken: Dinner!)''')
+    if (single_select == 'what') or (single_select == 'you'): 
+        col2.write('You win! :smiley:')
+    else: 
+        col2.write('Winner Winner :chicken: Dinner!')
+
+    col2.subheader('Multi-Select Box')
+    col2.write('Select 1 or more options from a variety')
+    multi_select = col2.multiselect('Multi-Select', ['what', 'will', 'you', 'choose?'])
     col2.code('''
-st.selectbox('Select', [1,2,3])
-st.multiselect('Multiselect', [1,2,3])
-st.slider('Slide me', min_value=0, max_value=10)
-st.select_slider('Slide to select', options=[1,'2'])
-st.text_input('Enter some text')
-st.number_input('Enter a number')
-st.text_area('Area for textual entry')
-st.date_input('Date input')
-st.time_input('Time entry')
-st.file_uploader('File uploader')
-st.color_picker('Pick a color')
-    ''')
+multi_select = st.multiselect('Multi-Select', ['what', 'will', 'you', 'choose?'])
+st.write(multi_select)''')
+    col2.write(multi_select)
+
+    col2.subheader('Sliders')
+    col2.markdown('__Single Slider__')
+    slider_value = col2.slider('Slide me', min_value=0, max_value=10, value=5)
+    
+    col2.code('''
+slider_value = st.slider('Slide me',  min_value=0, max_value=10, value=5)
+st.write(slider_value)''')
+    col2.write(slider_value)
+
+    col2.markdown('__Double Ended Slider__')
+    double_slider = col2.slider('A range', 0,100, (10,90))
+    col2.code('''
+double_slider = col2.slider('A range', 0,100, (10,90))
+st.write(double_slider)''')
+    col2.write(double_slider)
+
+    col2.markdown('__Single Slider__')
+    s_slider = col2.select_slider('Slide to select', options=[1,'Middle', variable])
+    col2.code('''
+s_slider = st.select_slider('Slide to select', options=[1,'Middle', variable])
+st.write(s_slider)''')
+    col2.write(s_slider)
+
+    col2.subheader('Text variables')
+    col2.markdown('__Text Input__')
+    text_limited = col2.text_input('Enter some text: limit to number of characters')
+    text_unlim = col2.text_area('Area for textual entry: no limit to number of characters')
+    with col2: 
+        st.write(text_limited)
+
+    col2.number_input('Enter a number')
+    col2.date_input('Date input')
+    col2.time_input('Time entry')
+    col2.file_uploader('File uploader')
+    col2.color_picker('Pick a color')
+    
 
     # PLOT COMMANDS
 
