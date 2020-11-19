@@ -82,7 +82,7 @@ st.write(an_object) #this is a list
 
     # DISPLAY CODE
     with col1: 
-        st.subheader("Display Code")
+        st.header("Display Code")
         st.text('You can display code using st.code:')
         st.code(''' 
 st.code('st.write("a line of code")')
@@ -102,8 +102,48 @@ if code_button:
             st.text('success!')
         ''')
 
+        st.write("Another way is with echo:")
+        st.code(''' 
+with st.echo(): # everything after this line will be printed
+    st.text("Code to be executed and printed")
+    echo = st.button("a button")
+            if echo:
+                st.write('__Here you go__')
+        ''')
+        st.write("Here it is in practice:")
+        with st.echo(): # everything after this line will be printed
+            st.text("Code to be executed and printed")
+            echo = st.button("a button")
+            if echo:
+                st.write('__Here you go__')
+            
+
+    # MEDIA
+    with col1: 
+        st.header("Media")
+
+        st.subheader("Image")
+        st.code('''
+st.image('img/MC.png',use_column_width = True)
+        ''')
+        st.image('img/MC.png',use_column_width = True)
+
+        st.subheader("audio file")
+        st.code(''' 
+        ''')
+        #st.audio('')
+
+        st.subheader("Video")
+        st.code(''' 
+st.video('img/balloon_video.webm')
+        ''')
+        st.video('img/balloon_video.webm')
+
+        st.subheader("Hyperlink")
+        
+
     # SIDEBAR COMMANDS
-    col1.subheader('Sidebar')
+    col1.header('Sidebar')
     col1.write('Add widgets to sidebar')
     col1.code('''
 st.sidebar.<widget>
@@ -379,6 +419,7 @@ def tutorial(page):
     '''Tutorial to learn how to run Streamlit commands'''
     st.title(page)
     st.write("Now you can have a chance to try yourself! Combine things together and see what you get!")
+    st.write(" ## Happy Streamlit-ing! :tada: :clap:")
 
     trial_code = st_ace('st.balloons()', font_size=15) 
     # need to save the work of people who input stuff 
