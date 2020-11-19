@@ -3,7 +3,7 @@ from streamlit_ace import st_ace
 #from execbox import execbox
 import math
 import pandas as pd
-import random as rnd 
+import numpy as np
 from pathlib import Path
 import base64
 
@@ -80,6 +80,28 @@ st.write(an_object) #this is a list
     col1.code("st.latex('e^{i\pi} + 1 = 0')")
     col1.latex('e^{i\pi} + 1 = 0')
 
+    # DISPLAY CODE
+    with col1: 
+        st.subheader("Display Code")
+        st.text('You can display code using st.code:')
+        st.code(''' 
+st.code('st.write("a line of code")')
+st.code( ' ' '  # use triple quotes to create a block (no spaces)
+st.write("A block of code")
+code_button = st.button('Click Me')
+if code_button: 
+    success!
+' ' ')
+        ''')
+        st.text('this output looks like:')
+        st.code('st.write("a line of code")')
+        st.code( '''  # use triple quotes to create a block (no spaces)
+        st.write("A block of code")
+        code_button = st.button('Click Me')
+        if code_button: 
+            st.text('success!')
+        ''')
+
     # SIDEBAR COMMANDS
     col1.subheader('Sidebar')
     col1.write('Add widgets to sidebar')
@@ -138,7 +160,8 @@ elif radio_selection == 3.14159:
     single_select = col2.selectbox('Single Select', ['what', 'will', 'you', 'choose?'])
 
     col2.code(''' 
-single_select = st.selectbox('Single Select', ['what', 'will', 'you', 'choose?'])
+single_select = st.selectbox('Single Select', 
+    ['what', 'will', 'you', 'choose?'])
     
 if (single_select == 'what') or (single_select == 'you'): 
     st.write('You win! :smiley:')
@@ -153,7 +176,8 @@ else:
     col2.write('Select 1 or more options from a variety')
     multi_select = col2.multiselect('Multi-Select', ['what', 'will', 'you', 'choose?'])
     col2.code('''
-multi_select = st.multiselect('Multi-Select', ['what', 'will', 'you', 'choose?'])
+multi_select = st.multiselect('Multi-Select', 
+    ['what', 'will', 'you', 'choose?'])
 st.write(multi_select)''')
     col2.write(multi_select)
 
@@ -173,39 +197,72 @@ double_slider = col2.slider('A range', 0,100, (10,90))
 st.write(double_slider)''')
     col2.write(double_slider)
 
-    col2.markdown('__Single Slider__')
-    s_slider = col2.select_slider('Slide to select', options=[1,'Middle', variable])
+    col2.markdown('__Fixed Option Slider__')
+    s_slider = col2.select_slider('Slide to select', options=[1,'Middle', variable], value = 'Middle')
     col2.code('''
-s_slider = st.select_slider('Slide to select', options=[1,'Middle', variable])
+s_slider = st.select_slider('Slide to select', 
+    options=[1,'Middle', variable],value = 'Middle')
 st.write(s_slider)''')
     col2.write(s_slider)
 
     with col2: 
         st.subheader('Various Input fields')
         st.markdown('__Text Input__')
-        text_limited = col2.text_input('Enter some text: limit to number of characters', 'display text')
-        text_unlim = col2.text_area('Area for textual entry: no limit to number of characters',\
-            'This is the display paragraph. :smiley: HIIIIIIII Thanks for reading. This is a whole paragraph in a text area!!!!!!! YAY!!!!!')
+        st.code('''
+title_limited = "Enter some text: limit to number of characters"
+text_limited = col2.text_input(title_limited, 'display text')
+st.write(text_limited)
+        
+title_unlim = "Area for textual entry: no limit to number of characters"
+text_unlim = col2.text_area(title_unlim, "Text to Display")
+st.write(text_unlim) ''')
+
+        title_limited = "Enter some text: limit to number of characters"
+        text_limited = col2.text_input(title_limited, 'display text')
         st.write(text_limited)
+
+        title_unlim = "Area for textual entry: no limit to number of characters"
+        text_unlim = col2.text_area(title_unlim, "Text to Display")
         st.write(text_unlim)
     
         st.markdown('__Number Input__')
+        st.code(''' 
+a_number = st.number_input('Enter a number')
+st.write(a_number)''')
         a_number = st.number_input('Enter a number')
         st.write(a_number)
 
         st.markdown('__Date Input__')
+        st.write("The date input is automatically the datetime class, default is the current date")
+        st.code('''
+a_date = st.date_input('Date input')
+st.write(a_date)
+st.write(type(a_date)) ''')
         a_date = st.date_input('Date input')
         st.write(a_date)
         st.write(type(a_date))
 
-        st.markdown('__Text Input__')
+        st.markdown('__Time Input__')
+        st.write("The time input is automatically the datetime class, default is the current time")
+        st.code('''
+a_time = st.time_input('Time entry')
+st.write(a_time)
+st.write(type(a_time))''')
         a_time = st.time_input('Time entry')
         st.write(a_time)
         st.write(type(a_time))
 
         st.subheader('Odds & Ends')
+        st.markdown("__Upload a file__")
+        st.code(''' 
+upload_file = st.file_uploader('File uploader')
+        ''')
         upload_file = st.file_uploader('File uploader')
 
+        st.markdown("__Colour Select__")
+        st.code(''' 
+color = st.color_picker('Pick a color')
+st.write(color)''')
         color = st.color_picker('Pick a color')
         st.write(color)
     
@@ -235,6 +292,15 @@ def beta(page):
     col2.write(data)
 
     st.subheader('Columns of Different Sizes')
+    st.code('''
+    col3,col4,col5 = st.beta_columns([1,2,3]) 
+    # 3 columns where first is the smallest, the second is 2x the size of the first and 3rd is 3x the first
+    col3.image('img/MC.png',use_column_width = True, caption="A Streamlit Sharing App")
+    with col4: 
+        st.image('img/MC.png',use_column_width = True, caption="A Streamlit Sharing App")
+    with col5: 
+        st.image('img/MC.png',use_column_width = True, caption="A Streamlit Sharing App")
+    ''')
     col3,col4,col5 = st.beta_columns([1,2,3]) 
     # 3 columns where first is the smallest, the second is 2x the size of the first and 3rd is 3x the first
     col3.image('img/MC.png',use_column_width = True, caption="A Streamlit Sharing App")
@@ -244,6 +310,28 @@ def beta(page):
         st.image('img/MC.png',use_column_width = True, caption="A Streamlit Sharing App")
 
     st.subheader('Columns to Make a Grid')
+    st.code('''
+    for i in range(1,3): # number of rows in your table! = 2
+        cols = st.beta_columns(2) # number of columns in each row! = 2
+        # first colum if the ith row
+        cols[0].image('img/row_%i_col_0.png' %i, use_column_width=True)
+        cols[1].image('img/row_%i_col_1.jpg' %i, use_column_width=True)
+    ''')
+    for i in range(1,3): # number of rows in your table! = 2
+        cols = st.beta_columns(2) # number of columns in each row! = 2
+        # first colum if the ith row
+        cols[0].image('img/row_%i_col_0.png' %i, use_column_width=True)
+        cols[1].image('img/row_%i_col_1.jpg' %i, use_column_width=True)
+
+    st.subheader('Containers')
+    st.write('''you may want to create a container to _________. A cool feature of containers, 
+    it that it allows you to place things 'out of order'. ''')
+    with st.beta_container():
+        st.write("This bar graph is inside the container")
+        # You can call any Streamlit command, including custom components:
+        st.bar_chart(np.random.randn(50, 3))
+    
+    st.write("This is outside the container")
 
     return
 
