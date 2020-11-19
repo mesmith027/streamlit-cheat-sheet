@@ -1,7 +1,8 @@
 import streamlit as st
 from streamlit_ace import st_ace
-from execbox import execbox
+#from execbox import execbox
 import math
+import pandas as pd
 from pathlib import Path
 import base64
 
@@ -52,12 +53,14 @@ def basic(page):
     col1.write('There are various ways to display text in Streamlit')
 
     with col1:
-        title_code = st_ace("st.title('A title')",height=45, font_size=15)
+        with st.beta_container(): 
+            title_code = st_ace("st.title('A title')",height=45, font_size=15)
         #title_code = execbox("st.title('A title')",height=45,autorun=True)
+        #st.write("Hello")
         exec(title_code)
-        create_space()
+    create_space()
         #st.markdown('________', unsafe_allow_html=True)
-    
+    with col1:
         header_code = st_ace("st.header('A basic header')",height=45,font_size=15)
         exec(header_code)
         create_space()
@@ -214,7 +217,7 @@ st.write(s_slider)''')
         st.write(color)
     
 
-    # PLOT COMMANDS
+    # PLOT COMMANDS -> maybe they have their own section
 
     return
 
@@ -224,6 +227,21 @@ def beta(page):
     st.write('''This pages lists the Beta commands that are available in Streamlit. They are not yet integrated 
     into the basic Streamlit functions and therefore may not always work in unique (edge) cases. If you believe you have 
     encountered such a case please let us know on the [Streamlit Community Platform](https://discuss.streamlit.io/)''')
+    
+    st.subheader('Columns')
+    st.code('''
+    col1,col2 = st.beta_columns(2)
+    col1.image('brain.png', caption= "This ia a blue brain!")
+    data = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns = ['a', 'b', 'c'])
+    col2.write(data)''')
+    
+    col1,col2 = st.beta_columns(2)
+    col1.image('brain.png', caption= "This ia a blue brain!")
+    data = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns = ['a', 'b', 'c'])
+    col2.write(data)
+    
+
+
     return
 
 def experimental(page):
