@@ -117,6 +117,31 @@ with st.echo(): # everything after this line will be printed
             if echo:
                 st.write('__Here you go__')
             
+    # DISPLAY DATA
+    with col1: 
+        st.header("Display Data")
+        st.subheader("Pandas DataFrame")
+        st.code(''' 
+column_names = ['a','b','c','d','e']
+pandas_data = pd.DataFrame(np.random.randn(50,5), columns=column_names)
+st.dataframe(pandas_data)
+        ''')
+        column_names = ['a','b','c','d','e']
+        pandas_data = pd.DataFrame(np.random.randn(50,5), columns=column_names)
+        st.dataframe(pandas_data)
+    
+        st.write("you can also use the table function:")
+        st.code(''' 
+st.table(pandas_data.iloc[0:10])
+        ''')
+        st.table(pandas_data.iloc[0:10])
+
+        st.subheader('Json data')
+        st.code(''' 
+json_data = {'Dictionary':True ,'Format':342}
+st.json(json_data)''')
+        json_data = {'Dictionary':True ,'Format':342}
+        st.json(json_data)
 
     # MEDIA
     with col1: 
@@ -140,6 +165,13 @@ st.video('img/balloon_video.webm')
         st.video('img/balloon_video.webm')
 
         st.subheader("Hyperlink")
+        st.write("You can add hyperlinks in by using standard markdown notation")
+        st.code('''
+st.write('[Check this out](https://www.streamlit.io/sharing)')
+st.markdown("[Tweet us!](https://twitter.com/streamlit)") ''')
+
+        st.write('[Check this out](https://www.streamlit.io/sharing)')
+        st.markdown("[Tweet us!](https://twitter.com/streamlit)")
         
 
     # SIDEBAR COMMANDS
