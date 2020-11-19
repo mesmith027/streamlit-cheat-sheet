@@ -3,6 +3,7 @@ from streamlit_ace import st_ace
 #from execbox import execbox
 import math
 import pandas as pd
+import random as rnd 
 from pathlib import Path
 import base64
 
@@ -51,23 +52,15 @@ def basic(page):
     # CREATING TEXT
     col1.header('Display text')
     col1.write('There are various ways to display text in Streamlit')
-
-    with col1:
-        with st.beta_container(): 
-            title_code = st_ace("st.title('A title')",height=45, font_size=15)
-        #title_code = execbox("st.title('A title')",height=45,autorun=True)
-        #st.write("Hello")
-        exec(title_code)
-    create_space()
-        #st.markdown('________', unsafe_allow_html=True)
-    with col1:
-        header_code = st_ace("st.header('A basic header')",height=45,font_size=15)
-        exec(header_code)
-        create_space()
     
-        subheader_code = st_ace("st.subheader('My subheader')",height=45,font_size=15)
-        exec(subheader_code)
-        create_space()
+    col1.title('A title')
+    col1.code("st.title('A title')")
+
+    col1.header('A basic header')
+    col1.code("st.header('A basic header')")
+
+    col1.subheader('My subheader')
+    col1.code("st.subheader('My subheader')")
 
     col1.text('Fixed width text command:')
     col1.code("st.text('Fixed width text command:')")
@@ -228,7 +221,7 @@ def beta(page):
     into the basic Streamlit functions and therefore may not always work in unique (edge) cases. If you believe you have 
     encountered such a case please let us know on the [Streamlit Community Platform](https://discuss.streamlit.io/)''')
     
-    st.subheader('Columns')
+    st.subheader('Columns of Equal Size')
     st.code('''
     col1,col2 = st.beta_columns(2)
     col1.image('brain.png', caption= "This ia a blue brain!")
@@ -236,11 +229,21 @@ def beta(page):
     col2.write(data)''')
     
     col1,col2 = st.beta_columns(2)
-    col1.image('brain.png', caption= "This ia a blue brain!")
+    col1.image('img/brain.png', caption= "This ia a blue brain!")
     data = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns = ['a', 'b', 'c'])
+    col2.subheader('A Dataframe')
     col2.write(data)
-    
 
+    st.subheader('Columns of Different Sizes')
+    col3,col4,col5 = st.beta_columns([1,2,3]) 
+    # 3 columns where first is the smallest, the second is 2x the size of the first and 3rd is 3x the first
+    col3.image('img/MC.png',use_column_width = True, caption="A Streamlit Sharing App")
+    with col4: 
+        st.image('img/MC.png',use_column_width = True, caption="A Streamlit Sharing App")
+    with col5: 
+        st.image('img/MC.png',use_column_width = True, caption="A Streamlit Sharing App")
+
+    st.subheader('Columns to Make a Grid')
 
     return
 
