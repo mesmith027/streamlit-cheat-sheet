@@ -221,6 +221,9 @@ st.write(s_slider)''')
 def beta(page):
     '''Beta Streamlit commands'''
     st.title(page)
+    st.write('''This pages lists the Beta commands that are available in Streamlit. They are not yet integrated 
+    into the basic Streamlit functions and therefore may not always work in unique (edge) cases. If you believe you have 
+    encountered such a case please let us know on the [Streamlit Community Platform](https://discuss.streamlit.io/)''')
     return
 
 def experimental(page):
@@ -231,6 +234,13 @@ def experimental(page):
 def tutorial(page):
     '''Tutorial to learn how to run Streamlit commands'''
     st.title(page)
+    st.write("Now you can have a chance to try yourself! Combine things together and see what you get!")
+
+    trial_code = st_ace('st.balloons()', font_size=15) 
+    # need to save the work of people who input stuff 
+    # checkbox to save work? 
+    # button to put it back to start 
+    exec(trial_code)
     return
 
 # Run the program
