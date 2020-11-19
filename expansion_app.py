@@ -155,8 +155,9 @@ st.image('img/MC.png',use_column_width = True)
 
         st.subheader("audio file")
         st.code(''' 
+st.audio('img/audio_example.wav')
         ''')
-        #st.audio('')
+        st.audio('img/audio_example.wav')
 
         st.subheader("Video")
         st.code(''' 
@@ -173,15 +174,6 @@ st.markdown("[Tweet us!](https://twitter.com/streamlit)") ''')
         st.write('[Check this out](https://www.streamlit.io/sharing)')
         st.markdown("[Tweet us!](https://twitter.com/streamlit)")
         
-
-    # SIDEBAR COMMANDS
-    col1.header('Sidebar')
-    col1.write('Add widgets to sidebar')
-    col1.code('''
-st.sidebar.<widget>
->>> a = st.sidebar.radio(\'R:\',[1,2])
-    ''')
-
     # WIDGETS
     col2.header('Interactive Widgets')
     col2.write('There are many interactive widgets that you can use to allow the user \
@@ -337,6 +329,26 @@ color = st.color_picker('Pick a color')
 st.write(color)''')
         color = st.color_picker('Pick a color')
         st.write(color)
+    
+    # SIDEBAR COMMANDS
+    with col2: 
+        st.header('Sidebar')
+        st.write("To add widgets or functions to the sidebar you simply have to add 'sidebar' before you call the function")
+        st.code('''
+# use st.sidebar.<widget> notation
+a = st.sidebar.radio("Your buttons added to the sidebar!",[1,2])
+if a == 1:
+    st.sidebar.markdown('You added a widget to the sidebar!')
+else: 
+    st.sidebar.markdown('NOTE: the write function is not callable from the sidebar, you mucst use markdown')
+    ''')
+        add_sidebar = st.button('Run this code to add to the sidebar')
+        if add_sidebar: 
+            a = st.sidebar.radio("Your buttons added to the sidebar!",[1,2])
+            if a == 1:
+                st.sidebar.markdown('You added a widget to the sidebar!')
+            else: 
+                st.sidebar.markdown('NOTE: the write function is not callable from the sidebar, you mucst use markdown')
     
 
     # PLOT COMMANDS -> maybe they have their own section
