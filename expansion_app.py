@@ -1,7 +1,14 @@
 import streamlit as st
+from streamlit_ace import st_ace
+from execbox import execbox
 import math
 from pathlib import Path
 import base64
+
+def create_space(): 
+    st.write('')
+    st.write('')
+    st.write('')
 
 def setup(page):
     '''Main page for Streamlit Setup and Commandline'''
@@ -44,14 +51,20 @@ def basic(page):
     col1.header('Display text')
     col1.write('There are various ways to display text in Streamlit')
 
-    col1.title('A title')
-    col1.code("st.title('A title')")
-
-    col1.header('A basic header')
-    col1.code("st.header('A basic header')")
-
-    col1.subheader('My subheader')
-    col1.code("st.subheader('My subheader')")
+    with col1:
+        title_code = st_ace("st.title('A title')",height=45, font_size=15)
+        #title_code = execbox("st.title('A title')",height=45,autorun=True)
+        exec(title_code)
+        create_space()
+        #st.markdown('________', unsafe_allow_html=True)
+    
+        header_code = st_ace("st.header('A basic header')",height=45,font_size=15)
+        exec(header_code)
+        create_space()
+    
+        subheader_code = st_ace("st.subheader('My subheader')",height=45,font_size=15)
+        exec(subheader_code)
+        create_space()
 
     col1.text('Fixed width text command:')
     col1.code("st.text('Fixed width text command:')")
@@ -171,18 +184,34 @@ s_slider = st.select_slider('Slide to select', options=[1,'Middle', variable])
 st.write(s_slider)''')
     col2.write(s_slider)
 
-    col2.subheader('Text variables')
-    col2.markdown('__Text Input__')
-    text_limited = col2.text_input('Enter some text: limit to number of characters')
-    text_unlim = col2.text_area('Area for textual entry: no limit to number of characters')
     with col2: 
+        st.subheader('Various Input fields')
+        st.markdown('__Text Input__')
+        text_limited = col2.text_input('Enter some text: limit to number of characters', 'display text')
+        text_unlim = col2.text_area('Area for textual entry: no limit to number of characters',\
+            'This is the display paragraph. :smiley: HIIIIIIII Thanks for reading. This is a whole paragraph in a text area!!!!!!! YAY!!!!!')
         st.write(text_limited)
+        st.write(text_unlim)
+    
+        st.markdown('__Number Input__')
+        a_number = st.number_input('Enter a number')
+        st.write(a_number)
 
-    col2.number_input('Enter a number')
-    col2.date_input('Date input')
-    col2.time_input('Time entry')
-    col2.file_uploader('File uploader')
-    col2.color_picker('Pick a color')
+        st.markdown('__Date Input__')
+        a_date = st.date_input('Date input')
+        st.write(a_date)
+        st.write(type(a_date))
+
+        st.markdown('__Text Input__')
+        a_time = st.time_input('Time entry')
+        st.write(a_time)
+        st.write(type(a_time))
+
+        st.subheader('Odds & Ends')
+        upload_file = st.file_uploader('File uploader')
+
+        color = st.color_picker('Pick a color')
+        st.write(color)
     
 
     # PLOT COMMANDS
