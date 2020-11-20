@@ -13,7 +13,7 @@ def create_space():
     st.write('')
 
 def setup(page):
-    '''Main page for Streamlit Setup and Commandline'''
+    '''Main page for Streamlit Setup and Command line'''
 
     st.title(page)
     col1, col2 = st.beta_columns(2)
@@ -40,6 +40,25 @@ $ streamlit docs
 $ streamlit --version
 $ pip install streamlit-nightly --upgrade
     ''')
+
+    with col2:
+        st.markdown('''
+        1. What did I make and why: 
+            * expansion on Daniel's popular Cheat Sheet
+            * I felt that it needed 
+                * some more use case examples
+                * pictures of what the functions/widgets actually create
+                * Streamlit is ALL about beautiful visuals!
+        2. What parts of Streamlit does it showcase?
+            * Ease of use
+            * Demo aspects to new users 
+            * print each page and create "cheat sheets"
+        3. What did you learn?
+            * Literally all the basic function calls 
+            * Beta functions
+            * there is no place to find experimental_ functions ([on docs](https://docs.streamlit.io/en/stable/#))!?
+                * how do our users try out new things?
+        ''')
     return
 
 def basic(page):
@@ -53,9 +72,10 @@ def basic(page):
     col1.header('Display text')
     col1.write('There are various ways to display text in Streamlit')
     
+    col1.markdown("---")
     col1.title('A title')
     col1.code("st.title('A title')")
-
+    col1.markdown("---")
     col1.header('A basic header')
     col1.code("st.header('A basic header')")
 
@@ -333,22 +353,22 @@ st.write(color)''')
     # SIDEBAR COMMANDS
     with col2: 
         st.header('Sidebar')
-        st.write("To add widgets or functions to the sidebar you simply have to add 'sidebar' before you call the function")
+        st.write('''
+To add widgets or functions to the sidebar you simply have to add 'sidebar' before you call the function. 
+NOTE: the write function is not callable from the sidebar, you mucst use markdown''')
         st.code('''
 # use st.sidebar.<widget> notation
-a = st.sidebar.radio("Your buttons added to the sidebar!",[1,2])
-if a == 1:
+a = st.sidebar.button("Your button added to the sidebar!")
+if not a:
     st.sidebar.markdown('You added a widget to the sidebar!')
-else: 
-    st.sidebar.markdown('NOTE: the write function is not callable from the sidebar, you mucst use markdown')
+
     ''')
         add_sidebar = st.button('Run this code to add to the sidebar')
         if add_sidebar: 
-            a = st.sidebar.radio("Your buttons added to the sidebar!",[1,2])
-            if a == 1:
+            a = st.sidebar.button("Your button added to the sidebar!")
+            if not a:
                 st.sidebar.markdown('You added a widget to the sidebar!')
-            else: 
-                st.sidebar.markdown('NOTE: the write function is not callable from the sidebar, you mucst use markdown')
+            
     
 
     # PLOT COMMANDS -> maybe they have their own section
@@ -482,7 +502,7 @@ if __name__ == '__main__':
     st.sidebar.markdown('Pick the page you wish to visit for a list of all the \
     possible functions and commands in Streamlit')
     page = st.sidebar.radio('Navigation', [
-        'Setup and Commandline',
+        'Setup and Command line',
         'Basic Commands',
         'Beta Commands',
         'Experimental Commands',
@@ -494,7 +514,7 @@ if __name__ == '__main__':
     ''', unsafe_allow_html=True)
 
     # run associated page program for each selection
-    if page == 'Setup and Commandline':
+    if page == 'Setup and Command line':
         setup(page)
     elif page == 'Basic Commands':
         basic(page)
